@@ -51,12 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {},
-                child: Text('スタート'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black, backgroundColor: Colors.blue,
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0))
-                ),
+                        borderRadius: BorderRadius.circular(0))),
+                child: const Text('スタート'),
               ),
             ),
           ],

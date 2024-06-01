@@ -1,0 +1,7 @@
+{
+    "dart.previewFlutterUiGuides": true,
+    // 以下はオプション
+    "dart.previewFlutterUiGuidesCustomTracking": true,
+    "dart.closingLabels": false,
+    "editor.bracketPairColorization.enabled": true,
+}
