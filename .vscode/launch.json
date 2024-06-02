@@ -8,7 +8,8 @@
             "name": "test1",
             "cwd": "test1",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "program": "lib/screen/main.dart",
         },
         {
             "name": "test1 (profile mode)",

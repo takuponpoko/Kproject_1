@@ -37,6 +37,16 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () => {
+                   Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TodoList()))
+                  },
+              icon: const Icon(Icons.auto_graph)),
+        ],
       ),
       body: Center(
         child: Column(
@@ -49,8 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push( context,
-    MaterialPageRoute(builder: (context) => const TodoList()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TodoList()));
                 },
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,

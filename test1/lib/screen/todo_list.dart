@@ -33,9 +33,6 @@ class _MyHomePageState extends State<MyHomePage2> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
-        actions: [
-          Icon(Icons.abc),
-        ],
       ),
       body: Center(
         child: Column(
