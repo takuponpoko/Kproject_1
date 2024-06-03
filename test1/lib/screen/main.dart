@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'TODOリスト'),
@@ -35,18 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(Icons.auto_graph),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
-        actions: [
-          IconButton(
-              onPressed: () => {
-                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const TodoList()))
-                  },
-              icon: const Icon(Icons.auto_graph)),
-        ],
       ),
       body: Center(
         child: Column(

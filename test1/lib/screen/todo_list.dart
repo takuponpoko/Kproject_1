@@ -9,10 +9,10 @@ class TodoList extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         useMaterial3: true,
       ),
-      home: const MyHomePage2(title: '画面繊維先１'),
+      home: const MyHomePage2(title: 'TODO'),
     );
   }
 }
@@ -33,20 +33,34 @@ class _MyHomePageState extends State<MyHomePage2> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        actions: [
+          IconButton(
+              onPressed: () => {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TodoList()))
+                  },
+              icon: const Icon(Icons.add)),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'うんこうんこ',
+              'あ',
             ),
             SizedBox(
               width: 300,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push( context,
-    MaterialPageRoute(builder: (context) => const MyHomePage(title: '戻った画面',)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyHomePage(
+                                title: 'スタート',
+                              )));
                 },
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
