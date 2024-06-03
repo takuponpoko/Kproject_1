@@ -1,45 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test2/screen/main.dart';
 
-class TodoList extends StatelessWidget {
+class TodoList extends ConsumerWidget {
   const TodoList({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage2(title: 'TODO'),
-    );
-  }
-}
-
-class MyHomePage2 extends StatefulWidget {
-  const MyHomePage2({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage2> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage2> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        backgroundColor: Colors.yellow,
+        leading: IconButton(
+            onPressed: () => {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const TodoList()))
+                },
+            icon: const Icon(Icons.auto_graph)),
+        title: const Text('TODOリスト'),
         actions: [
           IconButton(
               onPressed: () => {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TodoList()))
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const TodoList()))
                   },
               icon: const Icon(Icons.add)),
         ],
@@ -58,9 +44,7 @@ class _MyHomePageState extends State<MyHomePage2> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const MyHomePage(
-                                title: 'スタート',
-                              )));
+                          builder: (context) => const MyHomePage()));
                 },
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,

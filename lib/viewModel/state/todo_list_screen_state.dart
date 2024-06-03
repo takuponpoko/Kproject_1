@@ -9,6 +9,5 @@ class TodoListScreenState with _$TodoListScreenState {
     @Default(0) int dayCompleteTaskCount,
     @Default(0) int monthCompleteTaskCount,
     @Default(0) int yearCompleteTaskCount,
-    @Default(0) int checkedTaskCount,
   }) = _TodoListScreenState;
 }

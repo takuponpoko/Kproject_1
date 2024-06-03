@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test2/screen/todo_list.dart';
+import 'package:test2/viewModel/todo_list_view_model.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,40 +12,61 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'TODOリスト'),
+    return const MaterialApp(
+      title: 'Create TODOList',
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class MyHomePage extends ConsumerWidget {
+  const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dayTasks = ref
+        .watch(todoListViewModel.select((value) => value.dayCompleteTaskCount));
+    final leftTasks = ref
+        .watch(todoListViewModel.select((value) => value.description.length));
 
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.auto_graph),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        leading: IconButton(
+            onPressed: () => {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => const TodoList()))
+                },
+            icon: const Icon(Icons.auto_graph)),
+        backgroundColor: Colors.yellow,
+        title: const Text('TODOリスト'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'タスクを管理しよう',
+              '本日の完了実績',
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              '$dayTasks個',
+              style: const TextStyle(fontSize: 30),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            const Text(
+              '現在の残件数',
+              style: TextStyle(fontSize: 30),
+            ),
+            Text(
+              '$leftTasks個',
+              style: const TextStyle(fontSize: 30),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             SizedBox(
               width: 300,
@@ -59,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0))),
-                child: const Text('スタート'),
+                child: const Text('TODOリストへ'),
               ),
             ),
           ],
