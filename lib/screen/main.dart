@@ -27,7 +27,7 @@ class MyHomePage extends ConsumerWidget {
     final dayTasks = ref
         .watch(todoListViewModel.select((value) => value.dayCompleteTaskCount));
     final leftTasks = ref
-        .watch(todoListViewModel.select((value) => value.description.length));
+        .watch(todoListViewModel.select((value) => value.todoTask.length));
 
     return Scaffold(
       appBar: AppBar(
@@ -39,8 +39,14 @@ class MyHomePage extends ConsumerWidget {
                   //         builder: (context) => const TodoList()))
                 },
             icon: const Icon(Icons.auto_graph)),
-        backgroundColor: Colors.yellow,
-        title: const Text('TODOリスト'),
+        backgroundColor: Colors.purpleAccent,
+        title: const TextButton(
+          onPressed: null,
+          child: Text(
+            'TODOリスト',
+            style: TextStyle(fontSize: 21, color: Colors.black),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -79,7 +85,7 @@ class MyHomePage extends ConsumerWidget {
                 },
                 style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.purpleAccent,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(0))),
                 child: const Text('TODOリストへ'),
