@@ -13,34 +13,38 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
   }
 
   String generateRandomString([int length = 32]) {
-    const String charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    const String charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
     final Random random = Random.secure();
-    final String randomStr =  List.generate(length, (_) => charset[random.nextInt(charset.length)]).join();
+    final String randomStr =
+        List.generate(length, (_) => charset[random.nextInt(charset.length)])
+            .join();
     return randomStr;
   }
 
-   void addList(String task){
-    final list = List<Todo>.from(state.todoTask ?? []);
+  Future<void> changeText(String task) async {
+    state = state.copyWith(addText: task);
+  }
+
+  void addList(String task) {
+    final list = List<Todo>.from(state.todoTask);
     list.add(Todo(id: generateRandomString(), title: task, isSelected: false));
-    state = state.copyWith(
-      todoTask: list
-    );
+    state = state.copyWith(todoTask: list);
   }
 
-  void removeList(int index){
-    final list = List<Todo>.from(state.todoTask ?? []);
+  void removeList(int index) {
+    final list = List<Todo>.from(state.todoTask);
     list.remove(list[index]);
-    state = state.copyWith(
-        todoTask: list
-    );
+    state = state.copyWith(todoTask: list);
   }
 
-  void changeSelected(int index){
-    final list = List<Todo>.from(state.todoTask ?? []);
-    list[index] = Todo(id: list[index].id, title: list[index].title, isSelected: !list[index].isSelected);
-    state = state.copyWith(
-      todoTask: list
-    );
+  void changeSelected(int index) {
+    final list = List<Todo>.from(state.todoTask);
+    list[index] = Todo(
+        id: list[index].id,
+        title: list[index].title,
+        isSelected: !list[index].isSelected);
+    state = state.copyWith(todoTask: list);
   }
 }
 

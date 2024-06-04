@@ -7,9 +7,9 @@ part 'todo_list_screen_state.freezed.dart';
 class TodoListScreenState with _$TodoListScreenState {
   const factory TodoListScreenState({
     @Default([]) List<Todo> todoTask,
+    @Default('') String addText,
     @Default(0) int dayCompleteTaskCount,
     @Default(0) int monthCompleteTaskCount,
     @Default(0) int yearCompleteTaskCount,
-    @Default(false) bool selected,
   }) = _TodoListScreenState;
 }

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,10 +14,9 @@ class TodoList extends ConsumerWidget {
     final vm = ref.watch(todoListViewModel.notifier);
     final detail =
         ref.watch(todoListViewModel.select((value) => value.todoTask));
-    final selected =
-        ref.watch(todoListViewModel.select((value) => value.selected));
-    String task = '';
+    // final task = ref.watch(todoListViewModel.select((value) => value.addText));
     DateTime now = DateTime.now();
+    String task = '';
     DateFormat outputFormat = DateFormat('yyyy-MM-dd');
     String date = outputFormat.format(now);
 
@@ -52,28 +49,30 @@ class TodoList extends ConsumerWidget {
                       builder: (context) {
                         return Center(
                           child: CupertinoAlertDialog(
-                            title: Text('タスクを追加'),
+                            title: const Text('タスクを追加'),
                             content: CupertinoTextField(
                               placeholder: 'タスクを入力して追加',
                               maxLines: 3,
                               keyboardType: TextInputType.multiline,
-                              onChanged: (value) {
+                              onChanged: (value) async {
+                                // await vm.changeText(value);
                                 task = value;
+                                print(task);
                               },
                             ),
                             actions: [
                               CupertinoDialogAction(
-                                child: Text('キャンセル'),
+                                child: const Text('キャンセル'),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
                               ),
                               CupertinoDialogAction(
-                                child: Text('追加'),
                                 onPressed: () {
                                   vm.addList(task);
                                   Navigator.pop(context);
                                 },
+                                child: const Text('追加'),
                               ),
                             ],
                           ),
@@ -96,23 +95,40 @@ class TodoList extends ConsumerWidget {
                     closeOnScroll: true,
                     key: UniqueKey(),
                     endActionPane: ActionPane(
-                      // (2)
                       extentRatio: 0.5,
-                      motion: const StretchMotion(), // (5)
+                      motion: const StretchMotion(),
                       dismissible: DismissiblePane(onDismissed: () {
                         vm.removeList(detail.indexOf(list));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('タスクを削除しました。')));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('"${list.title}"を削除しました。'),
+                          duration: const Duration(seconds: 2),
+                          action: SnackBarAction(
+                            label: '取り消し',
+                            onPressed: () {
+                              // TODO
+                            },
+                          ),
+                        ));
                       }),
                       children: [
                         SlidableAction(
                           onPressed: (_) {
                             vm.removeList(detail.indexOf(list));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('"${list.title}"を削除しました。'),
+                              duration: const Duration(seconds: 2),
+                              action: SnackBarAction(
+                                label: '取り消し',
+                                onPressed: () {
+                                  // TODO
+                                },
+                              ),
+                            ));
                           },
                           backgroundColor: Colors.red,
                           foregroundColor: Colors.white,
                           icon: Icons.delete,
-                          label: 'Trash',
+                          label: '削除',
                         ),
                       ],
                     ),

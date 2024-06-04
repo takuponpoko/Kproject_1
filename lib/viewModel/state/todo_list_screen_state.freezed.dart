@@ -17,10 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TodoListScreenState {
   List<Todo> get todoTask => throw _privateConstructorUsedError;
+  String get addText => throw _privateConstructorUsedError;
   int get dayCompleteTaskCount => throw _privateConstructorUsedError;
   int get monthCompleteTaskCount => throw _privateConstructorUsedError;
   int get yearCompleteTaskCount => throw _privateConstructorUsedError;
-  bool get selected => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TodoListScreenStateCopyWith<TodoListScreenState> get copyWith =>
@@ -35,10 +35,10 @@ abstract class $TodoListScreenStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<Todo> todoTask,
+      String addText,
       int dayCompleteTaskCount,
       int monthCompleteTaskCount,
-      int yearCompleteTaskCount,
-      bool selected});
+      int yearCompleteTaskCount});
 }
 
 /// @nodoc
@@ -55,16 +55,20 @@ class _$TodoListScreenStateCopyWithImpl<$Res, $Val extends TodoListScreenState>
   @override
   $Res call({
     Object? todoTask = null,
+    Object? addText = null,
     Object? dayCompleteTaskCount = null,
     Object? monthCompleteTaskCount = null,
     Object? yearCompleteTaskCount = null,
-    Object? selected = null,
   }) {
     return _then(_value.copyWith(
       todoTask: null == todoTask
           ? _value.todoTask
           : todoTask // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
+      addText: null == addText
+          ? _value.addText
+          : addText // ignore: cast_nullable_to_non_nullable
+              as String,
       dayCompleteTaskCount: null == dayCompleteTaskCount
           ? _value.dayCompleteTaskCount
           : dayCompleteTaskCount // ignore: cast_nullable_to_non_nullable
@@ -77,10 +81,6 @@ class _$TodoListScreenStateCopyWithImpl<$Res, $Val extends TodoListScreenState>
           ? _value.yearCompleteTaskCount
           : yearCompleteTaskCount // ignore: cast_nullable_to_non_nullable
               as int,
-      selected: null == selected
-          ? _value.selected
-          : selected // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -95,10 +95,10 @@ abstract class _$$TodoListScreenStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {List<Todo> todoTask,
+      String addText,
       int dayCompleteTaskCount,
       int monthCompleteTaskCount,
-      int yearCompleteTaskCount,
-      bool selected});
+      int yearCompleteTaskCount});
 }
 
 /// @nodoc
@@ -113,16 +113,20 @@ class __$$TodoListScreenStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? todoTask = null,
+    Object? addText = null,
     Object? dayCompleteTaskCount = null,
     Object? monthCompleteTaskCount = null,
     Object? yearCompleteTaskCount = null,
-    Object? selected = null,
   }) {
     return _then(_$TodoListScreenStateImpl(
       todoTask: null == todoTask
           ? _value._todoTask
           : todoTask // ignore: cast_nullable_to_non_nullable
               as List<Todo>,
+      addText: null == addText
+          ? _value.addText
+          : addText // ignore: cast_nullable_to_non_nullable
+              as String,
       dayCompleteTaskCount: null == dayCompleteTaskCount
           ? _value.dayCompleteTaskCount
           : dayCompleteTaskCount // ignore: cast_nullable_to_non_nullable
@@ -135,10 +139,6 @@ class __$$TodoListScreenStateImplCopyWithImpl<$Res>
           ? _value.yearCompleteTaskCount
           : yearCompleteTaskCount // ignore: cast_nullable_to_non_nullable
               as int,
-      selected: null == selected
-          ? _value.selected
-          : selected // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -148,10 +148,10 @@ class __$$TodoListScreenStateImplCopyWithImpl<$Res>
 class _$TodoListScreenStateImpl implements _TodoListScreenState {
   const _$TodoListScreenStateImpl(
       {final List<Todo> todoTask = const [],
+      this.addText = '',
       this.dayCompleteTaskCount = 0,
       this.monthCompleteTaskCount = 0,
-      this.yearCompleteTaskCount = 0,
-      this.selected = false})
+      this.yearCompleteTaskCount = 0})
       : _todoTask = todoTask;
 
   final List<Todo> _todoTask;
@@ -165,6 +165,9 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
 
   @override
   @JsonKey()
+  final String addText;
+  @override
+  @JsonKey()
   final int dayCompleteTaskCount;
   @override
   @JsonKey()
@@ -172,13 +175,10 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
   @override
   @JsonKey()
   final int yearCompleteTaskCount;
-  @override
-  @JsonKey()
-  final bool selected;
 
   @override
   String toString() {
-    return 'TodoListScreenState(todoTask: $todoTask, dayCompleteTaskCount: $dayCompleteTaskCount, monthCompleteTaskCount: $monthCompleteTaskCount, yearCompleteTaskCount: $yearCompleteTaskCount, selected: $selected)';
+    return 'TodoListScreenState(todoTask: $todoTask, addText: $addText, dayCompleteTaskCount: $dayCompleteTaskCount, monthCompleteTaskCount: $monthCompleteTaskCount, yearCompleteTaskCount: $yearCompleteTaskCount)';
   }
 
   @override
@@ -187,24 +187,23 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
         (other.runtimeType == runtimeType &&
             other is _$TodoListScreenStateImpl &&
             const DeepCollectionEquality().equals(other._todoTask, _todoTask) &&
+            (identical(other.addText, addText) || other.addText == addText) &&
             (identical(other.dayCompleteTaskCount, dayCompleteTaskCount) ||
                 other.dayCompleteTaskCount == dayCompleteTaskCount) &&
             (identical(other.monthCompleteTaskCount, monthCompleteTaskCount) ||
                 other.monthCompleteTaskCount == monthCompleteTaskCount) &&
             (identical(other.yearCompleteTaskCount, yearCompleteTaskCount) ||
-                other.yearCompleteTaskCount == yearCompleteTaskCount) &&
-            (identical(other.selected, selected) ||
-                other.selected == selected));
+                other.yearCompleteTaskCount == yearCompleteTaskCount));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_todoTask),
+      addText,
       dayCompleteTaskCount,
       monthCompleteTaskCount,
-      yearCompleteTaskCount,
-      selected);
+      yearCompleteTaskCount);
 
   @JsonKey(ignore: true)
   @override
@@ -217,21 +216,21 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
 abstract class _TodoListScreenState implements TodoListScreenState {
   const factory _TodoListScreenState(
       {final List<Todo> todoTask,
+      final String addText,
       final int dayCompleteTaskCount,
       final int monthCompleteTaskCount,
-      final int yearCompleteTaskCount,
-      final bool selected}) = _$TodoListScreenStateImpl;
+      final int yearCompleteTaskCount}) = _$TodoListScreenStateImpl;
 
   @override
   List<Todo> get todoTask;
+  @override
+  String get addText;
   @override
   int get dayCompleteTaskCount;
   @override
   int get monthCompleteTaskCount;
   @override
   int get yearCompleteTaskCount;
-  @override
-  bool get selected;
   @override
   @JsonKey(ignore: true)
   _$$TodoListScreenStateImplCopyWith<_$TodoListScreenStateImpl> get copyWith =>
