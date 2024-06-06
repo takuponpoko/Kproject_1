@@ -4,10 +4,9 @@ import 'package:test2/screen/main.dart';
 import 'package:test2/viewModel/todo_list_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TodoList extends HookConsumerWidget {
+class TodoList extends ConsumerWidget {
   const TodoList({super.key});
 
   @override
@@ -21,6 +20,7 @@ class TodoList extends HookConsumerWidget {
         ref.watch(todoListViewModel.select((value) => value.taskText));
     DateFormat outputFormat = DateFormat('yyyy-MM-dd');
     String date = outputFormat.format(now);
+    final controller = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -54,13 +54,11 @@ class TodoList extends HookConsumerWidget {
                             title: const Text('タスクを追加'),
                             content: CupertinoTextField(
                               placeholder: 'タスクを入力して追加',
-                              controller: TextEditingController(),
                               maxLines: 3,
                               keyboardType: TextInputType.multiline,
                               onChanged: (value) {
+                                controller.text = value;
                                 vm.changeTask(value);
-                                print(task);
-                                print(canAdd);
                               },
                             ),
                             actions: [
@@ -72,13 +70,13 @@ class TodoList extends HookConsumerWidget {
                                 },
                               ),
                               CupertinoDialogAction(
-                                onPressed: canAdd
-                                    ? () {
-                                        vm.addList();
-                                        Navigator.pop(context);
-                                      }
-                                    : null,
-                                child: const Text('追加'),
+                                onPressed: () {
+                                  if (controller.text.isNotEmpty) {
+                                    vm.addList();
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                child:  const Text('追加'),
                               ),
                             ],
                           ),

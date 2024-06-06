@@ -12,7 +12,7 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
     return const TodoListScreenState();
   }
 
-  String generateRandomString([int length = 32]) {
+  String generateRandomString([int length = 10]) {
     const String charset =
         '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
     final Random random = Random.secure();
@@ -22,26 +22,24 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
     return randomStr;
   }
 
-  void changeTask(String task){
-      state = state.copyWith(taskText: task);
-      state = state.copyWith(canAdd: state.taskText.isNotEmpty);
+  void changeTask(String task) {
+    state = state.copyWith(taskText: task);
+    state = state.copyWith(canAdd: state.taskText.isNotEmpty);
   }
 
-  void canAdd() async {
-    String text = state.taskText ?? '';
-      state = state.copyWith(canAdd: text.isNotEmpty);
-  }
-
-  void clearText(){
-    state = state.copyWith(
-      taskText: ''
-    );
+  void clearText() {
+    state = state.copyWith(taskText: '',canAdd: false);
   }
 
   void addList() {
     final list = List<Todo>.from(state.todoTask);
-    list.add(Todo(id: generateRandomString(), title: state.taskText, isSelected: false));
-    state = state.copyWith(todoTask: list,canAdd: false,taskText: '');
+    var addText = state.taskText;
+    final random = generateRandomString();
+    if (addText.isEmpty) {
+      addText = '未入力タスク(id：$random)';
+    }
+    list.add(Todo(id: random, title: addText, isSelected: false));
+    state = state.copyWith(todoTask: list, taskText: '',canAdd: false);
   }
 
   void removeList(int index) {

@@ -26,8 +26,8 @@ class MyHomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final dayTasks = ref
         .watch(todoListViewModel.select((value) => value.dayCompleteTaskCount));
-    final leftTasks = ref
-        .watch(todoListViewModel.select((value) => value.todoTask.length));
+    final leftTasks =
+        ref.watch(todoListViewModel.select((value) => value.todoTask.length));
 
     return Scaffold(
       appBar: AppBar(
