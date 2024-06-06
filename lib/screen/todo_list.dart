@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test2/screen/main.dart';
 import 'package:test2/viewModel/todo_list_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TodoList extends ConsumerWidget {
+class TodoList extends HookConsumerWidget {
   const TodoList({super.key});
 
   @override
@@ -14,9 +15,10 @@ class TodoList extends ConsumerWidget {
     final vm = ref.watch(todoListViewModel.notifier);
     final detail =
         ref.watch(todoListViewModel.select((value) => value.todoTask));
-    // final task = ref.watch(todoListViewModel.select((value) => value.addText));
+    final canAdd = ref.watch(todoListViewModel.select((value) => value.canAdd));
     DateTime now = DateTime.now();
-    String task = '';
+    String task =
+        ref.watch(todoListViewModel.select((value) => value.taskText));
     DateFormat outputFormat = DateFormat('yyyy-MM-dd');
     String date = outputFormat.format(now);
 
@@ -52,26 +54,30 @@ class TodoList extends ConsumerWidget {
                             title: const Text('タスクを追加'),
                             content: CupertinoTextField(
                               placeholder: 'タスクを入力して追加',
+                              controller: TextEditingController(),
                               maxLines: 3,
                               keyboardType: TextInputType.multiline,
-                              onChanged: (value) async {
-                                // await vm.changeText(value);
-                                task = value;
+                              onChanged: (value) {
+                                vm.changeTask(value);
                                 print(task);
+                                print(canAdd);
                               },
                             ),
                             actions: [
                               CupertinoDialogAction(
                                 child: const Text('キャンセル'),
                                 onPressed: () {
+                                  vm.clearText();
                                   Navigator.pop(context);
                                 },
                               ),
                               CupertinoDialogAction(
-                                onPressed: () {
-                                  vm.addList(task);
-                                  Navigator.pop(context);
-                                },
+                                onPressed: canAdd
+                                    ? () {
+                                        vm.addList();
+                                        Navigator.pop(context);
+                                      }
+                                    : null,
                                 child: const Text('追加'),
                               ),
                             ],

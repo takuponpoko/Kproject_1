@@ -22,14 +22,26 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
     return randomStr;
   }
 
-  Future<void> changeText(String task) async {
-    state = state.copyWith(addText: task);
+  void changeTask(String task){
+      state = state.copyWith(taskText: task);
+      state = state.copyWith(canAdd: state.taskText.isNotEmpty);
   }
 
-  void addList(String task) {
+  void canAdd() async {
+    String text = state.taskText ?? '';
+      state = state.copyWith(canAdd: text.isNotEmpty);
+  }
+
+  void clearText(){
+    state = state.copyWith(
+      taskText: ''
+    );
+  }
+
+  void addList() {
     final list = List<Todo>.from(state.todoTask);
-    list.add(Todo(id: generateRandomString(), title: task, isSelected: false));
-    state = state.copyWith(todoTask: list);
+    list.add(Todo(id: generateRandomString(), title: state.taskText, isSelected: false));
+    state = state.copyWith(todoTask: list,canAdd: false,taskText: '');
   }
 
   void removeList(int index) {
