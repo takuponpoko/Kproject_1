@@ -27,10 +27,19 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
   }
 
   Future<void> initialSet() async{
+    DateTime now = DateTime.now();
+    var nowDay = (now.year * 10000) + (now.month * 100) + now.day;
     final list = await _repository.loadTodos();
+    final dayCompleteTask = await _repository.loadDayCompleteTask();
     state = state.copyWith(
-      todoTask: list
+      todoTask: list,
+      dayCompleteTaskCount: dayCompleteTask
     );
+    if(nowDay > state.lastAddDay){
+      state = state.copyWith(
+        dayCompleteTaskCount: 0
+      );
+    }
   }
 
   void changeTask(String task) {
@@ -51,14 +60,14 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
     }
     list.add(Todo(id: random, title: addText, isSelected: false));
     state = state.copyWith(todoTask: list, taskText: '', canAdd: false);
-    await _repository.saveTodos(list);
+    await _repository.saveTodos(list,state.dayCompleteTaskCount);
   }
 
   Future<void> removeList(int index) async {
     final list = List<Todo>.from(state.todoTask);
     list.remove(list[index]);
     state = state.copyWith(todoTask: list);
-    await _repository.saveTodos(list);
+    await _repository.saveTodos(list, state.dayCompleteTaskCount);
   }
 
   Future<void> changeSelected(int index) async{
@@ -68,7 +77,19 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
         title: list[index].title,
         isSelected: !list[index].isSelected);
     state = state.copyWith(todoTask: list);
-    await _repository.saveTodos(list);
+    await _repository.saveTodos(list, state.dayCompleteTaskCount);
+  }
+
+  void addLastDay(DateTime time){
+    state = state.copyWith(
+      lastAddDay: (time.year * 10000) + (time.month * 100) + time.day
+    );
+  }
+
+  void resetDay() {
+    state = state.copyWith(
+      dayCompleteTaskCount: 0
+    );
   }
 
   Future<void> completeTask() async {
@@ -81,7 +102,7 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
         .where((e) => e.isSelected == false)
         .toList();
     state = state.copyWith(todoTask: list, dayCompleteTaskCount: taskAchieve);
-    await _repository.saveTodos(list);
+    await _repository.saveTodos(list, state.dayCompleteTaskCount);
   }
 }
 

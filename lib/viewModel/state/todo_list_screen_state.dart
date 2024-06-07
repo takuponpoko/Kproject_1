@@ -9,6 +9,7 @@ class TodoListScreenState with _$TodoListScreenState {
     @Default([]) List<Todo> todoTask,
     @Default('') String taskText,
     @Default(false) bool canAdd,
+    @Default(0) int lastAddDay,
     @Default(0) int dayCompleteTaskCount,
     @Default(0) int monthCompleteTaskCount,
     @Default(0) int yearCompleteTaskCount,

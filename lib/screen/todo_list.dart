@@ -15,6 +15,7 @@ class TodoList extends HookConsumerWidget {
     final detail =
         ref.watch(todoListViewModel.select((value) => value.todoTask));
     final canAdd = ref.watch(todoListViewModel.select((value) => value.canAdd));
+    final lastAddDay = ref.watch(todoListViewModel.select((value) => value.lastAddDay));
     DateTime now = DateTime.now();
     String task =
         ref.watch(todoListViewModel.select((value) => value.taskText));
@@ -57,6 +58,7 @@ class TodoList extends HookConsumerWidget {
                               maxLines: 3,
                               keyboardType: TextInputType.multiline,
                               onChanged: (value) {
+                                vm.addLastDay(now);
                                 controller.text = value;
                                 vm.changeTask(value);
                               },
@@ -72,6 +74,8 @@ class TodoList extends HookConsumerWidget {
                               CupertinoDialogAction(
                                 onPressed: () {
                                   if (controller.text.isNotEmpty) {
+                                    print(date);
+                                    print(lastAddDay);
                                     vm.addList();
                                     Navigator.pop(context);
                                   }

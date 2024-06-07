@@ -32,9 +32,7 @@ class MyHomePage extends HookConsumerWidget {
         ref.watch(todoListViewModel.select((value) => value.todoTask.length));
 
     useEffect(() {
-      // 初期表示時にデータのロードを実行
       vm.initialSet();
-      // 関数(Function())を返却しておくと、Widgetのライフサイクルに合わせてWidgetのdisposeのタイミングで関数を実行してくれます（不要であればnullでOK）
       return null;
     },
         const []);

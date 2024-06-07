@@ -19,6 +19,7 @@ mixin _$TodoListScreenState {
   List<Todo> get todoTask => throw _privateConstructorUsedError;
   String get taskText => throw _privateConstructorUsedError;
   bool get canAdd => throw _privateConstructorUsedError;
+  int get lastAddDay => throw _privateConstructorUsedError;
   int get dayCompleteTaskCount => throw _privateConstructorUsedError;
   int get monthCompleteTaskCount => throw _privateConstructorUsedError;
   int get yearCompleteTaskCount => throw _privateConstructorUsedError;
@@ -38,6 +39,7 @@ abstract class $TodoListScreenStateCopyWith<$Res> {
       {List<Todo> todoTask,
       String taskText,
       bool canAdd,
+      int lastAddDay,
       int dayCompleteTaskCount,
       int monthCompleteTaskCount,
       int yearCompleteTaskCount});
@@ -59,6 +61,7 @@ class _$TodoListScreenStateCopyWithImpl<$Res, $Val extends TodoListScreenState>
     Object? todoTask = null,
     Object? taskText = null,
     Object? canAdd = null,
+    Object? lastAddDay = null,
     Object? dayCompleteTaskCount = null,
     Object? monthCompleteTaskCount = null,
     Object? yearCompleteTaskCount = null,
@@ -76,6 +79,10 @@ class _$TodoListScreenStateCopyWithImpl<$Res, $Val extends TodoListScreenState>
           ? _value.canAdd
           : canAdd // ignore: cast_nullable_to_non_nullable
               as bool,
+      lastAddDay: null == lastAddDay
+          ? _value.lastAddDay
+          : lastAddDay // ignore: cast_nullable_to_non_nullable
+              as int,
       dayCompleteTaskCount: null == dayCompleteTaskCount
           ? _value.dayCompleteTaskCount
           : dayCompleteTaskCount // ignore: cast_nullable_to_non_nullable
@@ -104,6 +111,7 @@ abstract class _$$TodoListScreenStateImplCopyWith<$Res>
       {List<Todo> todoTask,
       String taskText,
       bool canAdd,
+      int lastAddDay,
       int dayCompleteTaskCount,
       int monthCompleteTaskCount,
       int yearCompleteTaskCount});
@@ -123,6 +131,7 @@ class __$$TodoListScreenStateImplCopyWithImpl<$Res>
     Object? todoTask = null,
     Object? taskText = null,
     Object? canAdd = null,
+    Object? lastAddDay = null,
     Object? dayCompleteTaskCount = null,
     Object? monthCompleteTaskCount = null,
     Object? yearCompleteTaskCount = null,
@@ -140,6 +149,10 @@ class __$$TodoListScreenStateImplCopyWithImpl<$Res>
           ? _value.canAdd
           : canAdd // ignore: cast_nullable_to_non_nullable
               as bool,
+      lastAddDay: null == lastAddDay
+          ? _value.lastAddDay
+          : lastAddDay // ignore: cast_nullable_to_non_nullable
+              as int,
       dayCompleteTaskCount: null == dayCompleteTaskCount
           ? _value.dayCompleteTaskCount
           : dayCompleteTaskCount // ignore: cast_nullable_to_non_nullable
@@ -163,6 +176,7 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
       {final List<Todo> todoTask = const [],
       this.taskText = '',
       this.canAdd = false,
+      this.lastAddDay = 0,
       this.dayCompleteTaskCount = 0,
       this.monthCompleteTaskCount = 0,
       this.yearCompleteTaskCount = 0})
@@ -185,6 +199,9 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
   final bool canAdd;
   @override
   @JsonKey()
+  final int lastAddDay;
+  @override
+  @JsonKey()
   final int dayCompleteTaskCount;
   @override
   @JsonKey()
@@ -195,7 +212,7 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
 
   @override
   String toString() {
-    return 'TodoListScreenState(todoTask: $todoTask, taskText: $taskText, canAdd: $canAdd, dayCompleteTaskCount: $dayCompleteTaskCount, monthCompleteTaskCount: $monthCompleteTaskCount, yearCompleteTaskCount: $yearCompleteTaskCount)';
+    return 'TodoListScreenState(todoTask: $todoTask, taskText: $taskText, canAdd: $canAdd, lastAddDay: $lastAddDay, dayCompleteTaskCount: $dayCompleteTaskCount, monthCompleteTaskCount: $monthCompleteTaskCount, yearCompleteTaskCount: $yearCompleteTaskCount)';
   }
 
   @override
@@ -207,6 +224,8 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
             (identical(other.taskText, taskText) ||
                 other.taskText == taskText) &&
             (identical(other.canAdd, canAdd) || other.canAdd == canAdd) &&
+            (identical(other.lastAddDay, lastAddDay) ||
+                other.lastAddDay == lastAddDay) &&
             (identical(other.dayCompleteTaskCount, dayCompleteTaskCount) ||
                 other.dayCompleteTaskCount == dayCompleteTaskCount) &&
             (identical(other.monthCompleteTaskCount, monthCompleteTaskCount) ||
@@ -221,6 +240,7 @@ class _$TodoListScreenStateImpl implements _TodoListScreenState {
       const DeepCollectionEquality().hash(_todoTask),
       taskText,
       canAdd,
+      lastAddDay,
       dayCompleteTaskCount,
       monthCompleteTaskCount,
       yearCompleteTaskCount);
@@ -238,6 +258,7 @@ abstract class _TodoListScreenState implements TodoListScreenState {
       {final List<Todo> todoTask,
       final String taskText,
       final bool canAdd,
+      final int lastAddDay,
       final int dayCompleteTaskCount,
       final int monthCompleteTaskCount,
       final int yearCompleteTaskCount}) = _$TodoListScreenStateImpl;
@@ -248,6 +269,8 @@ abstract class _TodoListScreenState implements TodoListScreenState {
   String get taskText;
   @override
   bool get canAdd;
+  @override
+  int get lastAddDay;
   @override
   int get dayCompleteTaskCount;
   @override
