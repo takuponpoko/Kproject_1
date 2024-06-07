@@ -28,7 +28,7 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
   }
 
   void clearText() {
-    state = state.copyWith(taskText: '',canAdd: false);
+    state = state.copyWith(taskText: '', canAdd: false);
   }
 
   void addList() {
@@ -39,7 +39,7 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
       addText = '未入力タスク(id：$random)';
     }
     list.add(Todo(id: random, title: addText, isSelected: false));
-    state = state.copyWith(todoTask: list, taskText: '',canAdd: false);
+    state = state.copyWith(todoTask: list, taskText: '', canAdd: false);
   }
 
   void removeList(int index) {
@@ -55,6 +55,18 @@ class TodoListViewModel extends AutoDisposeNotifier<TodoListScreenState> {
         title: list[index].title,
         isSelected: !list[index].isSelected);
     state = state.copyWith(todoTask: list);
+  }
+
+  void completeTask() {
+    final taskAchieve = state.dayCompleteTaskCount +
+        List<Todo>.from(state.todoTask)
+            .where((e) => e.isSelected == true)
+            .toList()
+            .length;
+    final list = List<Todo>.from(state.todoTask)
+        .where((e) => e.isSelected == false)
+        .toList();
+    state = state.copyWith(todoTask: list, dayCompleteTaskCount: taskAchieve);
   }
 }
 

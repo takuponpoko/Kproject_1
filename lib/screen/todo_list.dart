@@ -53,7 +53,7 @@ class TodoList extends ConsumerWidget {
                           child: CupertinoAlertDialog(
                             title: const Text('タスクを追加'),
                             content: CupertinoTextField(
-                              placeholder: 'タスクを入力して追加',
+                              placeholder: 'タスクを入力して追加(1文字以上)',
                               maxLines: 3,
                               keyboardType: TextInputType.multiline,
                               onChanged: (value) {
@@ -165,7 +165,20 @@ class TodoList extends ConsumerWidget {
                   width: 300,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: detail.any((e) => e.isSelected) ? () {} : null,
+                    onPressed: detail.any((e) => e.isSelected) ? () {
+                      // TODO 完了確認ダイアログ
+                      vm.completeTask();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text('選択したタスクを完了しました。'),
+                        duration: const Duration(seconds: 2),
+                        action: SnackBarAction(
+                          label: '取り消し',
+                          onPressed: () {
+                            // TODO
+                          },
+                        ),
+                      ));
+                    } : null,
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
