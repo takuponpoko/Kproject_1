@@ -1,9 +1,29 @@
 class Todo {
-  const Todo({required this.id, required this.title, required this.isSelected});
+  String id;
+  String title;
+  bool isSelected;
 
-  final String id;
+  Todo({
+    required this.id,
+    required this.title,
+    required this.isSelected,
+  });
 
-  final String title;
+  // JSONからTodoオブジェクトを生成する
+  factory Todo.fromJson(Map<String, dynamic> json) {
+    return Todo(
+      id: json['id'],
+      title: json['title'],
+      isSelected: json['isSelected'],
+    );
+  }
 
-  final bool isSelected;
+  // TodoオブジェクトをJSONに変換する
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'isSelected': isSelected,
+    };
+  }
 }

@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TodoList extends ConsumerWidget {
+class TodoList extends HookConsumerWidget {
   const TodoList({super.key});
 
   @override

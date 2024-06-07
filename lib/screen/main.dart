@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:test2/screen/todo_list.dart';
 import 'package:test2/viewModel/todo_list_view_model.dart';
 
@@ -19,15 +20,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends ConsumerWidget {
+class MyHomePage extends HookConsumerWidget {
   const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final vm = ref.watch(todoListViewModel.notifier);
     final dayTasks = ref
         .watch(todoListViewModel.select((value) => value.dayCompleteTaskCount));
     final leftTasks =
         ref.watch(todoListViewModel.select((value) => value.todoTask.length));
+
+    useEffect(() {
+      // 初期表示時にデータのロードを実行
+      vm.initialSet();
+      // 関数(Function())を返却しておくと、Widgetのライフサイクルに合わせてWidgetのdisposeのタイミングで関数を実行してくれます（不要であればnullでOK）
+      return null;
+    },
+        const []);
 
     return Scaffold(
       appBar: AppBar(
